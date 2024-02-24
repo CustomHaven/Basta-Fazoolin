@@ -1,5 +1,6 @@
 # https://www.codecademy.com/courses/learn-python-3/projects/basta-fazoolin
 # Q19 Q20
+from datetime import time
 class Business:
   businesses_count = 0
   def __init__(self, name, franchises):
@@ -21,11 +22,11 @@ class Franchise:
     return "We are at " + self.address
   
   # Q16
-  def available_menus(self, time):
-    self.time = time
+  def available_menus(self, time_at):
+    self.time = time_at
     self.available = []
     for menu in self.menus:
-      if self.time >= menu.start_time and self.time <= menu.end_time:
+      if self.time >= int(menu.start_time) and self.time <= int(menu.end_time):
         self.available.append(menu)
     # print(self.available)
     return self.available
@@ -40,10 +41,12 @@ class Menu:
     self.end_time = end_time
     Menu.menus_count += 1
     self.menu_id = Menu.menus_count
-  
+  # float(format(a, '.2f'))
   # Q7
   def __repr__(self):
-    self.representative_string = "{menu} available from {start}0 to {end}0".format(menu=self.name, start=self.start_time, end=self.end_time)
+    starting_time = format(float(format(self.start_time, ".2")), ".2f")
+    ending_time = format(float(format(self.end_time, ".2")), ".2f")
+    self.representative_string = "{menu} available from {start} to {end}".format(menu=self.name, start=starting_time, end=ending_time)
     return self.representative_string
 
   # Q9
@@ -56,24 +59,32 @@ class Menu:
     return self.price_to_pay
 
 # Q3
+brunch_time_11 = time(hour=11).strftime("%H%M")
+brunch_time_16 = time(hour=16).strftime("%H%M")
 brunch = Menu('Brunch', {
   'pancakes': 7.50, 'waffles': 9.00, 'burger': 11.00, 'home fries': 4.50, 'coffee': 1.50, 'espresso': 3.00, 'tea': 1.00, 'mimosa': 10.50, 'orange juice': 3.50
-}, 11.00, 16.00)
+}, brunch_time_11, brunch_time_16)
 
 # Q4
+early_time_15 = time(hour=15).strftime("%H%M")
+early_time_18 = time(hour=18).strftime("%H%M")
 early_bird = Menu('Early-bird', {
   'salumeria plate': 8.00, 'salad and breadsticks (serves 2, no refills)': 14.00, 'pizza with quattro formaggi': 9.00, 'duck ragu': 17.50, 'mushroom ravioli (vegan)': 13.50, 'coffee': 1.50, 'espresso': 3.00,
-}, 15.00, 18.00)
+}, early_time_15, early_time_18)
 
 # Q5
+dinner_time_17 = time(hour=17).strftime("%H%M")
+dinner_time_23 = time(hour=23).strftime("%H%M")
 dinner = Menu('Dinner', {
   'crostini with eggplant caponata': 13.00, 'ceaser salad': 16.00, 'pizza with quattro formaggi': 11.00, 'duck ragu': 19.50, 'mushroom ravioli (vegan)': 13.50, 'coffee': 2.00, 'espresso': 3.00,
-}, 17.00, 23.00)
+}, dinner_time_17, dinner_time_23)
 
 # Q6
+kids_time_11 = time(hour=11).strftime("%H%M")
+kids_time_21 = time(hour=21).strftime("%H%M")
 kids = Menu('The kids menu', {
   'chicken nuggets': 6.50, 'fusilli with wild mushrooms': 12.00, 'apple juice': 3.00
-}, 11.00, 21.00)
+}, kids_time_11, kids_time_21)
 
 # Q8
 # print(brunch)
@@ -113,7 +124,9 @@ basta = Business("Basta Fazoolin' with my Heart", franchise)
 arepas_items = {
   'arepa pabellon': 7.00, 'pernil arepa': 8.50, 'guayanes arepa': 8.00, 'jamon arepa': 7.50
 }
-arepas_menu = Menu('Take a\' Arepa', arepas_items, 10.00, 20.00)
+arepa_time_10 = time(hour=10).strftime("%H%M")
+arepa_time_20 = time(hour=20).strftime("%H%M")
+arepas_menu = Menu('Take a\' Arepa', arepas_items, arepa_time_10, arepa_time_20)
 
 # Q23
 arepas_place = Franchise("189 Fitzgerald Avenue", [arepas_menu])
