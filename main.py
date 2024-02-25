@@ -1,6 +1,7 @@
 # https://www.codecademy.com/courses/learn-python-3/projects/basta-fazoolin
 # Q19 Q20
 from datetime import time
+import re
 class Business:
   businesses_count = 0
   def __init__(self, name, franchises):
@@ -32,7 +33,7 @@ class Franchise:
     return self.available
 
 # Q1 Q2
-class Menu:  
+class Menu:
   menus_count = 0
   def __init__(self, name, items, start_time, end_time):
     self.name = name
@@ -44,8 +45,8 @@ class Menu:
   # float(format(a, '.2f'))
   # Q7
   def __repr__(self):
-    starting_time = format(float(format(self.start_time, ".2")), ".2f")
-    ending_time = format(float(format(self.end_time, ".2")), ".2f")
+    starting_time = re.sub(r"(\d{2}$)", r":\1", self.start_time) # format(float(format(self.start_time, ".2")), ".2f")
+    ending_time = re.sub(r"(\d{2}$)", r":\1", self.end_time) # format(float(format(self.end_time, ".2")), ".2f")
     self.representative_string = "{menu} available from {start} to {end}".format(menu=self.name, start=starting_time, end=ending_time)
     return self.representative_string
 
